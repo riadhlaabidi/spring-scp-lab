@@ -1,0 +1,9 @@
+dependencies {
+    implementation project(':00-rewards-common')
+}
+
+test {
+    testLogging {
+        showStandardStreams = true
+    }
+}
