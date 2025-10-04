@@ -187,6 +187,7 @@
         <!-- Section: Spring Boot -->
 
         <!-- Day 3 -->
+        <module>30-jdbc-boot</module>
         <module>32-jdbc-autoconfig</module>
         <module>34-spring-data-jpa</module>
         <module>36-mvc</module>
