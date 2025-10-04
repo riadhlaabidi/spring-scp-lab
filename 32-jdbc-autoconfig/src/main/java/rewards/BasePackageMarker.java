@@ -1,0 +1,5 @@
+package rewards;
+
+interface BasePackageMarker {
+
+}
