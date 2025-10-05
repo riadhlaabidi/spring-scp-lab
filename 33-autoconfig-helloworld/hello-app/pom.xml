@@ -15,14 +15,10 @@
         <start-class>com.app.HelloApplication</start-class>
     </properties>
     <dependencies>
-        <!-- TO-DO-13: Study "hello-app" project.
-                  Note that it has dependency on "hello-lib" project -->
         <dependency>
             <groupId>io.spring.training.core-spring</groupId>
-            <artifactId>hello-lib</artifactId>
+            <artifactId>hello-starter</artifactId>
         </dependency>
-
-        <!-- TO-DO-22: Replace hello-lib above with hello-starter -->
     </dependencies>
     <build>
         <plugins>
