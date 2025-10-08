@@ -16,11 +16,15 @@ import rewards.internal.restaurant.RestaurantRepository;
 import rewards.internal.reward.RewardRepository;
 
 /**
- * Unit tests for the RewardNetworkImpl application logic. Configures the implementation with stub repositories
- * containing dummy data for fast in-memory testing without the overhead of an external data source.
+ * Unit tests for the RewardNetworkImpl application logic. Configures the
+ * implementation with stub repositories
+ * containing dummy data for fast in-memory testing without the overhead of an
+ * external data source.
  * 
- * Besides helping catch bugs early, tests are a great way for a new developer to learn an API as he or she can see the
- * API in action. Tests also help validate a design as they are a measure for how easy it is to use your code.
+ * Besides helping catch bugs early, tests are a great way for a new developer
+ * to learn an API as he or she can see the
+ * API in action. Tests also help validate a design as they are a measure for
+ * how easy it is to use your code.
  */
 public class RewardNetworkImplTests {
 
@@ -31,7 +35,8 @@ public class RewardNetworkImplTests {
 
 	@BeforeEach
 	public void setUp() throws Exception {
-		// create stubs to facilitate fast in-memory testing with dummy data and no external dependencies
+		// create stubs to facilitate fast in-memory testing with dummy data and no
+		// external dependencies
 		AccountRepository accountRepo = new StubAccountRepository();
 		RestaurantRepository restaurantRepo = new StubRestaurantRepository();
 		RewardRepository rewardRepo = new StubRewardRepository();
@@ -41,9 +46,9 @@ public class RewardNetworkImplTests {
 	}
 
 	@Test
-	@Disabled
 	public void testRewardForDining() {
-		// create a new dining of 100.00 charged to credit card '1234123412341234' by merchant '123457890' as test input
+		// create a new dining of 100.00 charged to credit card '1234123412341234' by
+		// merchant '123457890' as test input
 		Dining dining = Dining.createDining("100.00", "1234123412341234", "1234567890");
 
 		// call the 'rewardNetwork' to test its rewardAccountFor(Dining) method

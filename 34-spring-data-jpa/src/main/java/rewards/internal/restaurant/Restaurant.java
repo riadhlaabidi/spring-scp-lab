@@ -5,50 +5,47 @@ import common.money.Percentage;
 import rewards.Dining;
 import rewards.internal.account.Account;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 /**
  * Restaurants calculate how much benefit may be awarded to an account for
  * dining based on a availability policy and a benefit percentage.
  */
-// TODO-05: Map this class using JPA Annotations.
-// - Use the following SQL statement in the schema.sql as a guidance.
-//
-// create table T_RESTAURANT (ID integer identity primary key,
-//                            MERCHANT_NUMBER varchar(10) not null,
-//                            NAME varchar(80) not null,
-//                            BENEFIT_PERCENTAGE decimal(5,2) not null,
-//                            BENEFIT_AVAILABILITY_POLICY varchar(1) not null, unique(MERCHANT_NUMBER));
+@Entity
+@Table(name = "T_RESTAURANT")
 public class Restaurant {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long entityId;
 
+	@Column(name = "MERCHANT_NUMBER")
 	private String number;
 
 	private String name;
 
-	// This is not a simple mapping as Percentage is not a simple type.
-	// You need to map Percentage.value from a column in T_RESTAURANT.  If unsure,
-	// look at how Beneficiary does it.
+	@AttributeOverride(name = "value", column = @Column(name = "BENEFIT_PERCENTAGE"))
 	private Percentage benefitPercentage;
 
-
-	// DO NOT map this field. For now it is always set to AlwaysAvailable.
-	// The bonus section later will redo this mapping.
 	@Transient
 	private BenefitAvailabilityPolicy benefitAvailabilityPolicy = AlwaysAvailable.INSTANCE;
 
 	public Restaurant() {
-		//Needed by the JPA spec
+		// Needed by the JPA spec
 	}
 
 	/**
 	 * Creates a new restaurant.
 	 * 
-	 * @param number
-	 *            the restaurant's merchant number
-	 * @param name
-	 *            the name of the restaurant
+	 * @param number the restaurant's merchant number
+	 * @param name   the name of the restaurant
 	 */
 	public Restaurant(String number, String name) {
 		this.number = number;
@@ -59,8 +56,7 @@ public class Restaurant {
 	 * Sets the percentage benefit to be awarded for eligible dining
 	 * transactions.
 	 * 
-	 * @param benefitPercentage
-	 *            the benefit percentage
+	 * @param benefitPercentage the benefit percentage
 	 */
 	public void setBenefitPercentage(Percentage benefitPercentage) {
 		this.benefitPercentage = benefitPercentage;
@@ -70,8 +66,7 @@ public class Restaurant {
 	 * Sets the policy that determines if a dining by an account at this
 	 * restaurant is eligible for benefit.
 	 * 
-	 * @param benefitAvailabilityPolicy
-	 *            the benefit availability policy
+	 * @param benefitAvailabilityPolicy the benefit availability policy
 	 */
 	public void setBenefitAvailabilityPolicy(
 			BenefitAvailabilityPolicy benefitAvailabilityPolicy) {
@@ -117,10 +112,8 @@ public class Restaurant {
 	 * Calculate the benefit eligible to this account for dining at this
 	 * restaurant.
 	 * 
-	 * @param account
-	 *            the account that dined at this restaurant
-	 * @param dining
-	 *            a dining event that occurred
+	 * @param account the account that dined at this restaurant
+	 * @param dining  a dining event that occurred
 	 * @return the benefit amount eligible for reward
 	 */
 	public MonetaryAmount calculateBenefitFor(Account account, Dining dining) {
@@ -137,7 +130,6 @@ public class Restaurant {
 				+ ", benefitAvailabilityPolicy = " + benefitAvailabilityPolicy;
 	}
 
-	// Internal methods for JPA only - hence they are protected.
 	/**
 	 * Sets this restaurant's benefit availability policy from the code stored
 	 * in the underlying column. This is a database specific accessor using the
