@@ -31,16 +31,14 @@ public class AccountController {
 	 */
 	@Autowired
 	public AccountController(AccountManager accountManager,
-							 AccountService accountService) {
+			AccountService accountService) {
 		this.accountManager = accountManager;
 		this.accountService = accountService;
 	}
 
 	@GetMapping("/authorities")
 	public List<String> getAuthoritiesForUser(@RequestParam String username) {
-
 		return accountService.getAuthoritiesForUser(username);
-
 	}
 
 	/**
@@ -178,7 +176,7 @@ public class AccountController {
 	 * http://localhost:8080/accounts/12345.
 	 * 
 	 * @param resourceId
-	 *            Is of the new resource.
+	 *                   Is of the new resource.
 	 * @return
 	 */
 	private ResponseEntity<Void> entityWithLocation(Object resourceId) {
